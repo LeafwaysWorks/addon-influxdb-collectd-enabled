@@ -24,6 +24,7 @@ map:
 ports:
   80/tcp: null
   8086/tcp: 8086
+  25826/tcp: 25826
 ports_description:
   80/tcp: Web interface (Not required for Ingress)
   8086/tcp: InfluxDB server
@@ -45,4 +46,12 @@ schema:
   envvars:
     - name: match(^INFLUXDB_([A-Z0-9_])+$)
       value: str
+    - name: INFLUXDB_COLLECTD_ENABLED
+      value: 'true'
+    - name: INFLUXDB_COLLECTD_DATABASE
+      value: collectd
+    - name: INFLUXDB_COLLECTD_TYPESDB
+      value: /data/collectd/types.db
+    - name: INFLUXDB_COLLECTD_BIND_ADDRESS
+      value: ':25826'
   leave_front_door_open: bool?
